@@ -383,23 +383,30 @@
                     kiss.className = 'heart';
                     kiss.innerHTML = kissEmojis[Math.floor(Math.random() * kissEmojis.length)];
                     
-                    // Start from button position
-                    kiss.style.left = (buttonCenterX / window.innerWidth * 100) + '%';
-                    kiss.style.top = (buttonCenterY) + 'px';
+                    // Fixed positioning to appear above everything
+                    kiss.style.position = 'fixed';
+                    kiss.style.left = buttonCenterX + 'px';
+                    kiss.style.top = buttonCenterY + 'px';
+                    kiss.style.zIndex = '1000';
+                    kiss.style.pointerEvents = 'none';
+                    kiss.style.opacity = '0.9';
                     
                     // Use the button's current enlarged size for kiss emojis
                     kiss.style.fontSize = currentSize + 'px';
-                    kiss.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                    kiss.style.transition = 'all 0.8s ease-out';
                     
-                    document.getElementById('hearts').appendChild(kiss);
+                    document.body.appendChild(kiss);
                     
                     // Spread out the kisses after appearing
                     setTimeout(() => {
-                        kiss.style.transition = 'all 0.5s ease-out';
-                        kiss.style.left = Math.random() * 100 + '%';
+                        const randomX = Math.random() * window.innerWidth;
+                        const randomY = Math.random() * window.innerHeight;
+                        kiss.style.left = randomX + 'px';
+                        kiss.style.top = randomY + 'px';
+                        kiss.style.opacity = '0';
                     }, 50);
                     
-                    setTimeout(() => kiss.remove(), 3000);
+                    setTimeout(() => kiss.remove(), 1000);
                 }, i * 40);
             }
             
