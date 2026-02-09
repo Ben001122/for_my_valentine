@@ -38,6 +38,7 @@
             font-size: 20px;
             animation: fall linear infinite;
             opacity: 0.7;
+            z-index: 10;
         }
 
         @keyframes fall {
@@ -51,7 +52,7 @@
             border-radius: 30px;
             padding: 50px 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             text-align: center;
             position: relative;
@@ -128,7 +129,7 @@
 
         .celebration h2 {
             color: #e63946;
-            font-size: 2.5em;
+            font-size: 1.8em;
             margin-bottom: 20px;
         }
 
@@ -213,7 +214,7 @@
         </div>
 
         <div id="celebration" class="celebration">
-            <h2>🎉Yay! You Said YES!🎉</h2>
+            <h2>🎉 Yay! You Said YES! 🎉</h2>
             <div class="emoji">❤️</div>
             <div style="background: linear-gradient(135deg, #ffeef8 0%, #ffe8f5 50%, #f3e7ff 100%); padding: 10px; border-radius: 15px; margin: 20px 0;">
                 <p style="font-size: 0.95em; line-height: 1.4;">
@@ -253,21 +254,21 @@
                 </p>
 
             </div>
-            <p style="margin-top: 30px; font-size: 1.5em; white-space: nowrap;">💑 <span style="background: linear-gradient(90deg, #ff6b6b, #ee5a6f, #f093fb, #4facfe, #43e97b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">Happy Valentine's Day, my love!</span> 💑</p>
+            <p style="margin-top: 30px; font-size: 1.3em; white-space: nowrap;">💑 <span style="background: linear-gradient(90deg, #ff6b6b, #ee5a6f, #f093fb, #4facfe, #43e97b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">Happy Valentine's Day, my love!</span> 💑</p>
             <p style="margin-top: 20px; color: #ff2476; font-weight: bold; font-size: 1.2em;">
                Missing you so much across the miles 🥹🌍💕<br>
             </p>
             
             <!-- Secret expandable message in corner -->
            <div class="secret-message" id="secretMsg" style="margin-top: 10px; font-size: 0.50em; opacity: 0.75;">
-                <span class="main-text">But for now, I’ll settle for 100 virtual kisses 💋</span>
+                <span class="main-text">But for now, I'll settle for 100 virtual kisses 💋</span>
             </div>
              <div class="secret-message" id="secretMsg" style="margin-top: 5px; font-size: 0.45em; opacity: 0.75;">
                 <span class="bracket-text">(I'm being generous, I really want 1000 but gotta protect those lips of mine... I mean yours... I mean OURS)! 💕😘</span>
             </div>
             <div style="margin-top: 30px;">
                 <button class="yes-btn" onclick="location.reload()">
-                    Go on, try again… you’ll still end up with me 😏
+                    Go on, try again… you'll still end up with me 😏
                 </button>
             </div>
         </div>
@@ -380,7 +381,6 @@
             for (let i = 0; i < 80; i++) {
                 setTimeout(() => {
                     const kiss = document.createElement('div');
-                    kiss.className = 'heart';
                     kiss.innerHTML = kissEmojis[Math.floor(Math.random() * kissEmojis.length)];
                     
                     // Fixed positioning to appear above everything
@@ -412,8 +412,8 @@
             
             // Shrink button back to original size after a brief moment
             setTimeout(() => {
-                damnYesBtn.style.fontSize = '0.9em';
-                damnYesBtn.style.padding = '8px 20px';
+                damnYesBtn.style.fontSize = '0.8em';
+                damnYesBtn.style.padding = '6px 16px';
                 damnYesBtn.style.transform = 'scale(1)';
             }, 300);
         }
