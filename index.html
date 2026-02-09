@@ -215,8 +215,14 @@
         <div id="celebration" class="celebration">
             <h2>🎉Yay! You Said YES!🎉</h2>
             <div class="emoji">❤️</div>
-            <p>I knew you couldn’t resist… 😘 The best decision you’ve ever made, right, thangoo? 😌</p>
-            <p>You're stuck with me forever now! 😈😂</p>
+            <div style="background: linear-gradient(135deg, #ffeef8 0%, #ffe8f5 50%, #f3e7ff 100%); padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <p>I knew you couldn't resist... 😘 The best decision you've ever made, right, thangoo? 😌</p>
+                <div style="display: flex; gap: 10px; justify-content: center; margin: 15px 0; position: relative;">
+                    <button id="damnYesBtn" onclick="kissConfetti()" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-size: 0.9em; cursor: pointer; font-weight: bold; transition: all 0.3s ease;">DAMN YES! 🔥</button>
+                    <button id="whoSaidBtn" onmouseover="shrinkWhoSaid()" style="background: #ddd; color: #666; border: none; padding: 8px 20px; border-radius: 20px; font-size: 0.9em; cursor: pointer; font-weight: bold; transition: all 0.3s ease; position: relative;">Who said? 🤔</button>
+                </div>
+                <p>You're stuck with me forever now! 😈😂</p>
+            </div>
             <p style="margin-top: 30px; font-size: 1.5em; white-space: nowrap;">💑 <span style="background: linear-gradient(90deg, #ff6b6b, #ee5a6f, #f093fb, #4facfe, #43e97b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">Happy Valentine's Day, my love!</span> 💑</p>
             <p style="margin-top: 20px; color: #ff2476; font-weight: bold; font-size: 1.2em;">
                Missing you so much across the miles 🥹🌍💕<br>
@@ -299,7 +305,7 @@
         }
 
         function confetti() {
-            const colors = ['💖', '💕', '💗', '💝', '💘', '🌹', '✨', '💫'];
+            const colors = ['💖', '💕', '💗', '💝', '💘', '🌹', '✨'];
             for (let i = 0; i < 100; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
@@ -312,6 +318,67 @@
                     setTimeout(() => confetti.remove(), 3000);
                 }, i * 30);
             }
+        }
+        function shrinkWhoSaid() {
+            const whoSaidBtn = document.getElementById('whoSaidBtn');
+            const damnYesBtn = document.getElementById('damnYesBtn');
+            
+            // Shrink "Who said?" button
+            const currentSize = parseFloat(getComputedStyle(whoSaidBtn).fontSize) || 14.4;
+            if (currentSize > 6) {
+                whoSaidBtn.style.fontSize = (currentSize * 0.85) + 'px';
+                whoSaidBtn.style.padding = (currentSize * 0.4) + 'px ' + (currentSize * 0.8) + 'px';
+            }
+            
+            // Grow "DAMN YES!" button
+            const currentDamnSize = parseFloat(getComputedStyle(damnYesBtn).fontSize) || 14.4;
+            damnYesBtn.style.fontSize = (currentDamnSize * 1.15) + 'px';
+            damnYesBtn.style.padding = (currentDamnSize * 0.6) + 'px ' + (currentDamnSize * 1.5) + 'px';
+            damnYesBtn.style.transform = 'scale(1.1)';
+        }
+
+        function kissConfetti() {
+            const damnYesBtn = document.getElementById('damnYesBtn');
+            const buttonRect = damnYesBtn.getBoundingClientRect();
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+            
+            // Get the current enlarged size of the button
+            const currentSize = parseFloat(getComputedStyle(damnYesBtn).fontSize) || 14.4;
+            
+            const kissEmojis = ['💋', '😘', '👩‍❤️‍💋‍👨', '❤️', '💕', '💖', '💗'];
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const kiss = document.createElement('div');
+                    kiss.className = 'heart';
+                    kiss.innerHTML = kissEmojis[Math.floor(Math.random() * kissEmojis.length)];
+                    
+                    // Start from button position
+                    kiss.style.left = (buttonCenterX / window.innerWidth * 100) + '%';
+                    kiss.style.top = (buttonCenterY) + 'px';
+                    
+                    // Use the button's current enlarged size for kiss emojis
+                    kiss.style.fontSize = currentSize + 'px';
+                    kiss.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                    
+                    document.getElementById('hearts').appendChild(kiss);
+                    
+                    // Spread out the kisses after appearing
+                    setTimeout(() => {
+                        kiss.style.transition = 'all 0.5s ease-out';
+                        kiss.style.left = Math.random() * 100 + '%';
+                    }, 50);
+                    
+                    setTimeout(() => kiss.remove(), 3000);
+                }, i * 40);
+            }
+            
+            // Shrink button back to original size after a brief moment
+            setTimeout(() => {
+                damnYesBtn.style.fontSize = '0.9em';
+                damnYesBtn.style.padding = '8px 20px';
+                damnYesBtn.style.transform = 'scale(1)';
+            }, 300);
         }
     </script>
 </body>
