@@ -167,6 +167,88 @@
             font-size: 0.9em;
             font-weight: bold;
         }
+
+        /* Secret Message Styles */
+        .secret-envelope {
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .secret-envelope:hover {
+            transform: scale(1.1);
+        }
+
+        .secret-envelope img {
+            width: 80px;
+            height: 80px;
+            animation: gentle-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes gentle-bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .envelope-hint {
+            font-size: 0.9em;
+            color: #999;
+            font-style: italic;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        .secret-message-content {
+            display: none;
+            background: linear-gradient(135deg, #fff5f9 0%, #ffe8f5 50%, #f9e7ff 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px dashed #f5576c;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+                padding: 0 20px;
+            }
+            to {
+                opacity: 1;
+                max-height: 400px;
+                padding: 20px;
+            }
+        }
+
+        .secret-message-content.visible {
+            display: block;
+        }
+
+        .secret-message-content p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .close-envelope {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .close-envelope:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -254,18 +336,36 @@
                 </p>
 
             </div>
-            <p style="margin-top: 30px; font-size: 1.8em; white-space: nowrap;">👩‍❤️‍💋‍👨 <span style="background: linear-gradient(90deg, #ff6b6b, #ee5a6f, #f093fb, #4facfe, #43e97b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">Happy Valentine's Day, my love!</span> 👩‍❤️‍💋‍👨</p>
-            <p style="margin-top: 20px; color: #ff2476; font-weight: bold; font-size: 1.5em;">
+            <p style="margin-top: 35px; font-size: 1.8em; white-space: nowrap;">👩‍❤️‍💋‍👨 <span style="background: linear-gradient(90deg, #ff6b6b, #ee5a6f, #f093fb, #4facfe, #43e97b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">Happy Valentine's Day, my love!</span> 👩‍❤️‍💋‍👨</p>
+            <p style="margin-top: 25px; color: #ff2476; font-weight: bold; font-size: 1.5em;">
                Missing you so much across the miles 🥹🌍💕<br>
             </p>
             
-            <!-- Secret expandable message in corner -->
-           <div class="secret-message" id="secretMsg" style="margin-top: 10px; font-size: 0.50em; opacity: 0.75;">
-                <span class="main-text">But for now, I'll settle for 100 virtual kisses 💋</span>
+            <!-- Secret Message Envelope -->
+            <div class="secret-envelope" id="secretEnvelope" onclick="toggleSecretMessage()">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAADy0lEQVR4nO2bS2gTURSGv9RqF7pwIYKCG0VB3KgLxQdYH4i6EcSFCxeCKxe6cONGEBciuHLhQhBBRRBFUVyIoCAqKIqKL0RRfIB1oYKPqq21jf9AQxjTzp2ZeyeT5sCBLjLn3P/kzr3n3hsgkUgkEolEIpFIJBKJRCKRSCQSicQ0AG1AJ3AK+Ab8AdYAm4ALwG/gCrATaBVtdEWwEbgN/EM9f4BbwAYLzVaGSWAdcAuYApYDz0u8M5P/9xhYZ7HpytAGnAVmMXMaaCt5d0b+32lgWxW6rQy9wPcSH/w2sKXMu1tCfgBHKtRvZdiHO1uA3hjvbyv5O0/D/nwV6LciHMGN9YY+dgv/Nxe9kpJ6qwJDuHEhps8h4bVm6K0KPMCNjzF9PhLe5Aq9VYHnuDEW0+eY8F5coTe2A5A16WkGPOV7JMJ7Jbx9BXpjOwDJkp5mwGrgZ4T3t/D2afPQGtsB2Fy+gQ0R3g2hu1mgV7SDB84D0zGoU6G7UKC3SJd28Aj4pUH3h/BarDdL2gG9TsAToFfU36yxA9BWaX8mRNeuL+DP1dnzs/B8qNAK5BrsJ8zbBKwt47VF+2ylXgC+ZmxWgC15enR34CKwJcY6UJ7ewF7gU0SfeA/01zNbAQwA7zO2K2Mq0FeoN/AFLgVe5dS+MWAh0OuPwN/oPhSqJQDoyvHBKeBZSHQKc++UoTeI/hngzQVPcp73+5Ht9Qr0toXPmPtpngHv5jzTGwqkLMZUoTcYgCLPHM7cPA8Dk76/VqE3eI+5m+Ye8GvOs+d8f7lCr/8eWx9+HvAnSp77Rn2vx7fPKvQG77F153wAUk/NfZ4t0RuI6jPFkSAE+jD1c2W5uRa9k/S36/N+gKePKcT56s+H6X4xrzfXWoCpQKKUblYbzHuKnf++kD+a21L+8kQ/j1YLuFNj+4BtqH+dUfnMoZ9HqwW4WmP7gPcJJA+z+k6j8rMN8Gi1AF8zti9FNzCrsabJcgp7TiEu72KunR0YpStnxwG/8XGdeuAzcCJWF3guwgngvZXJSnBM/XEY9fO/L5Q3xkqaZnmtgAb69a+FPo9W2bsaGMgfBzTQ79d4/j8lfKbxe31+bdUF9Knf9FTn8WvtRrj6nh1r7Fm/ztWk27cEF8U/xmZpUZlX5d1hBtjj/8KO/99T+mOLPxXqLwO4QDF+hg3/sPpvLv6P3/j8rwz89+dNgT3/G/9+/U0C34D+f3pRIpFIJBKJRCKRSCQSiUQikUgkEglN/AXh/4dPJj2xrwAAAABJRU5ErkJggg==" alt="Secret Love Letter">
+                <div class="envelope-hint">✨ Click to read my secret message ✨</div>
             </div>
-             <div class="secret-message" id="secretMsg" style="margin-top: 5px; font-size: 0.45em; opacity: 0.75;">
-                <span class="bracket-text">(I'm being generous, I really want 1000 but gotta protect those lips of mine... I mean yours... I mean OURS)! 💕😘</span>
+
+            <div id="secretMessageContent" class="secret-message-content">
+                <p style="font-size: 1em; line-height: 1.5; margin-bottom: 10px;">
+                    <strong>💌 My Secret Love Note 💌</strong>
+                </p>
+                <p style="font-size: 0.9em; line-height: 1.4;">
+                    Thank you for giving me the most <em>loveable</em> family! 💗 You didn't just steal my heart — you turned it into our forever <em>home</em>! 🏡💕
+                </p>
+                <p style="font-size: 0.9em; line-height: 1.4; margin-top: 8px;">
+                    I love you more than words can express! Right now, I'm craving one of your warm, tight hugs so badly. 😭
+                </p>
+                <p style="font-size: 0.9em; line-height: 1.4; margin-top: 8px;">
+                    For now, I'll settle for 100 virtual kisses 💋...
+                </p>
+                <p style="font-size: 0.8em; line-height: 1.3; margin-top: 8px; font-style: italic; color: #666;">
+                    (Though I really want 1000, but gotta protect those lips of mine... I mean yours... I mean <strong>OURS</strong>! 😏💕😘)
+                </p>
+                <button class="close-envelope" onclick="toggleSecretMessage()">Close Letter 💕</button>
             </div>
+
             <div style="margin-top: 30px;">
                 <button class="yes-btn" onclick="location.reload()">
                     Go on, try again… you'll still end up with me 😏
@@ -350,6 +450,7 @@
                 }, i * 30);
             }
         }
+
         function shrinkWhoSaid() {
             const whoSaidBtn = document.getElementById('whoSaidBtn');
             const damnYesBtn = document.getElementById('damnYesBtn');
@@ -416,6 +517,25 @@
                 damnYesBtn.style.padding = '6px 16px';
                 damnYesBtn.style.transform = 'scale(1)';
             }, 300);
+        }
+
+        // Toggle Secret Message
+        function toggleSecretMessage() {
+            const secretContent = document.getElementById('secretMessageContent');
+            const envelope = document.getElementById('secretEnvelope');
+            
+            if (secretContent.classList.contains('visible')) {
+                secretContent.classList.remove('visible');
+                envelope.style.display = 'inline-block';
+            } else {
+                secretContent.classList.add('visible');
+                envelope.style.display = 'none';
+                
+                // Create extra hearts when opening the secret message
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(createHeart, i * 50);
+                }
+            }
         }
     </script>
 </body>
